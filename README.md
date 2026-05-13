@@ -1,2 +1,2 @@
-# Inl-mning1-Powershell
+# Inlämning1-Powershell
 Första inlämningen i powershell-kursen
