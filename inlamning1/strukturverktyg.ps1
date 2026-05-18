@@ -20,7 +20,7 @@ function createMap {
     $directoryPath = "C:\Users\Flamur Mehmeti\Downloads\Scripting och automatisering inlämningsuppgift 1\Inlamning1-Powershell\inlamning1\$name"
 }
 
-Write-Host "directory: $directoryPath\$mapName"
+$directoryPath = createMap
 
 # Creates the subfolders "logs", "scripts" and "temp"
 function subFolders {
@@ -37,4 +37,18 @@ function subFolders {
 }
 
 
-subFolders -directoryPath (createMap)
+subFolders -directoryPath ($directoryPath)
+$directoryPath = "$directoryPath" + "\logs"
+Write-Host " this is the directory path: $directoryPath\$mapName 99999"
+
+# Function that creates a .txt file
+function createTextFile {
+    param (
+        [string]$textFilePath
+    )
+    $format = Get-Date -Format "yyyy-MM-dd"
+    $date = $format.ToString()
+    New-Item -Path $textFilePath -name "log-$date.txt" -ItemType "File" -Value "Struktur skapad: $date"
+}
+
+createTextFile -textFilePath ($directoryPath)
