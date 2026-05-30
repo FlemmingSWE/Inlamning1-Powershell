@@ -3,7 +3,9 @@ function mapName {
     param (
         [string]$name
     )
-    $name = Read-Host "Type the desired map name"
+    
+    $name = Read-Host "Type the desired map name" -ErrorAction Stop
+
     Write-Host "The desired map name is: $name"
     return $name
 }
@@ -16,7 +18,17 @@ function createMap {
     )
     $directoryPath = "C:\Users\Flamur Mehmeti\Downloads\Scripting och automatisering inlämningsuppgift 1\Inlamning1-Powershell\inlamning1"
     $name = mapName
-    New-Item -Path $directoryPath -name $name  -ItemType Directory
+
+    try {
+        New-Item -Path $directoryPath -Name $name -ItemType Directory -ErrorAction Stop
+    }
+    catch {
+        <#Do this if a terminating exception happens#>
+        Write-Host "A root map with that name allready exists. Execution of the script will not continue."
+        exit
+    }
+
+    # New-Item -Path $directoryPath -name $name  -ItemType Directory
     $directoryPath = "C:\Users\Flamur Mehmeti\Downloads\Scripting och automatisering inlämningsuppgift 1\Inlamning1-Powershell\inlamning1\$name"
 }
 
